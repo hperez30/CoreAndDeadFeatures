@@ -41,11 +41,12 @@ variability model have usually varying degrees of importance. Some features may 
 most derivatives should include them. Other features may become dispensable as the market demand evolves. In addition, 
 there may be features that indirectly become of key importance because other essential features need them, or features 
 that cannot be included in any derivative due to their incompatibility with highly required features.
-
+</p>
+<p>
 We provide an efficient algorithm to identify core and dead features in Varibility Models. The implementation encode 
 configurations in binary and uses reduced ordered Binary Decision Diagrams (BDDs) to represent and reason about large 
 variblity models. Our algorithm utilizes the BuDDy BDD package for handling BDDs, however it is easy to get an equivalent 
-implementation to work on other BDD package, i.e cudd package. </p>
+implementation to work on other BDD package, for instance CUDD package. </p>
 
 <h3>
 <a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Objetives</h3>
@@ -55,26 +56,6 @@ more complex logics than the Propositional one, which include integer arithmetic
 reduced to Boolean functions, and thus encoded as BDDs, our algorithm is general enough to support most variability 
 model notations.</p>
 
-<h3>
-<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>Method</h3>
-
-<p></p>
-
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results</h3>
-
-<p></p>
-
-<h3>
-<a id="conclusions" class="anchor" href="#conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusions</h3>
-
-<p>On one hand existing approaches to identify core and dead features in variability models rely on the use of logic engines as
-“black boxes”. They follow the strategy of repeatedly calling predefined functions in the engines (one call for each feature
-to force its presence in the Boolean formula that encodes the variability model). We have shown that such strategy has poor
-time performance and so it hinders user interactivity. The algorithm provides in this repository directly interacts with the 
-data structure of the BDD that encodes a variability model. By efficiently traversing the BDD, it has been shown, both 
-theoretically and experimentally, that our algorithm exhibits better time-performance than related work.
-</p>
 
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contact</h3>
