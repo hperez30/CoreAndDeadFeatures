@@ -42,7 +42,10 @@ most derivatives should include them. Other features may become dispensable as t
 there may be features that indirectly become of key importance because other essential features need them, or features 
 that cannot be included in any derivative due to their incompatibility with highly required features.
 
-</p>
+We provide an efficient algorithm to identify core and dead features in Varibility Models. The implementation encode 
+configurations in binary and uses reduced ordered Binary Decision Diagrams (BDDs) to represent and reason about large 
+variblity models. Our algorithm utilizes the BuDDy BDD package for handling BDDs, however it is easy to get an equivalent 
+implementation to work on other BDD package, i.e cudd package. </p>
 
 <h3>
 <a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Objetives</h3>
