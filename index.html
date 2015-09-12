@@ -45,7 +45,7 @@ that cannot be included in any derivative due to their incompatibility with high
 <p>
 In this project we provide an efficient algorithm to identify core and dead features in Varibility Models. The implementation encode 
 configurations in binary and uses reduced ordered Binary Decision Diagrams (BDDs) to represent and reason about large 
-variblity models. Our algorithm utilizes the BuDDy BDD package for handling BDDs, however it is easy to get an equivalent 
+variblity models. Our algorithm utilizes the <a href="http://buddy.sourceforge.net/manual/main.html"> BuDDy BDD package</a> for handling BDDs, however it is easy to get an equivalent 
 implementation to work on other BDD package, for instance <a href="http://vlsi.colorado.edu/~fabio/CUDD/">CUDD package</a>. </p>
 
 <h3>
@@ -54,9 +54,9 @@ implementation to work on other BDD package, for instance <a href="http://vlsi.c
   <li> Download <a href="http://sourceforge.net/projects/buddy/">buddy-2.4.tar.gz</a> (766,5 kB).
   <li> Unzip "gunzip buddy-2.4.tar.gz".
   <li> Untar "tar xvf buddy-2.4.tar".
-  <li> Test: go to "CLab10/example/shirt" and compile the source files of the example by running "make". This should 
-       produce the executable "shirt". The effect of running "shirt" should be an assignment of color to Black, 
-       print to MIB, and size to Small.
+  <li> "./configure"
+  <li> "make"
+  <li> "make install"
 </ol>  
 
 <h3>
