@@ -61,20 +61,40 @@ implementation to work on other BDD package, for instance <a href="http://vlsi.c
 </ol>  
 
 <h3>
-<a id="sample" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test</h3>
+<a id="documentation" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>DOCUMENTATION</h3>
+<p>Directory buddy-2.4/doc contains documentation for the BuDDy package in postscript(tm) 
+format. The recommended starting point is bddnotes.ps, where an introduction to binary 
+decision diagrams is shown. In addition, you can find a full description of the buddy 
+package in buddy.ps.</p>
+
+<h3>
+<a id="test" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>TEST</h3>
 <p>Follow the instructions in this section to test our algorithm.</p>
 <ol>
-  <li> Download the code <a href="https://github.com/hperez30/CoreAndDeadFeatures/tarball/master">core.tar.gz</a> (766,5 kB).
-  <li> Unzip "gunzip buddy-2.4.tar.gz".
-  <li> Untar "tar xvf buddy-2.4.tar".
-  <li> "./configure"
-  <li> "make"
-  <li> "make install"
-</ol>  
+  <li> Download the code <a href="https://github.com/hperez30/CoreAndDeadFeatures/tarball/master">hperez30-CoreAndDeadFeatures-51bbbae.tar</a> (2,1 kB).
+  <li> Unzip "gunzip hperez30-CoreAndDeadFeatures-51bbbae.tar.gz".
+  <li> Untar "tar xvf hperez30-CoreAndDeadFeatures-51bbbae.tar".
+</ol> 
+<p>The following directories are created:</p> 
+<ol>
+    <li>coreanddead/core/            core and features algorithm implmentation
+    <li>coreanddead/core_test/       a simple test program
+    <li>coreanddead/bdds/            some bdd examples 
+    <li>readme.txt
+</ol>
+
+<h3>
+<a id="compile" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>COMPILE</h3>
+<p>Follow the instructions in this section to compile test program.</p>
+<ol>
+  <li> Open a terminal (Ctrl + Alt + T in ubuntu).
+  <li> Unzip "gunzip hperez30-CoreAndDeadFeatures-51bbbae.tar.gz".
+  <li> Go to "coreanddead/core_test/" directory.
+  <li> Type "g++ -O3 -std=c++0x test.c ../core/core.c -o test -lbdd -lgmp -I path_to_buddy/src -I../core/"
+</ol> 
 
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contact</h3>
-http://sourceforge.net/projects/buddy/
 <p>If you need further information, do not hesitate to contact Hector Perez-Morago (hperez@issi.uned.es).</p>
       </section>
     </div>
