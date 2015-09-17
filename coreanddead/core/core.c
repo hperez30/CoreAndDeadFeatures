@@ -98,3 +98,4 @@ int get_dependencies_conflicts(const bdd r, int *vars_low, int *vars_high, int *
 
 	return res_node[root];	
 }//end get_dependencies_conflicts
+
