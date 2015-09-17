@@ -1,5 +1,5 @@
 using namespace std;
-#include "dependencies_conflicts.h"
+#include "core.h"
 
 void dead_features(int *var_high, int *var_low, int num_var)
 {
