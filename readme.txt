@@ -26,7 +26,7 @@ format. The recommended starting point is bddnotes.ps, where an introduction to 
 decision diagrams is shown. In addition, you can find a full description of the buddy 
 package in buddy.ps.
 
-Test
+TEST
 
 Follow the instructions in this section to test our algorithm.
 
@@ -34,9 +34,16 @@ Follow the instructions in this section to test our algorithm.
  2. Unzip "gunzip hperez30-CoreAndDeadFeatures-51bbbae.tar.gz".
  3. Untar "tar xvf hperez30-CoreAndDeadFeatures-51bbbae.tar".
  
- The following directory estructures are created.
-    "./configure"
-    "make"
-    "make install" 
+ The following directories are created:
+    coreanddead/core/            core and features algorithm implmentation
+    coreanddead/core_test/       a simple test program
+    coreanddead/bdds/            some bdd examples 
+    readme.txt
  
- g++ -O3 -std=c++0x test.c core.c -o test -lbdd -lgmp -I ../buddy-2.4/src -I ./  
+ COMPILE 
+ 
+ Follow the instructions in this section to compile test program.
+ 
+ 1. Open a terminal (Ctrl + Alt + T in ubuntu).
+ 2. Go to "coreanddead/core_test/" directory.
+ 3. Type "g++ -O3 -std=c++0x test.c ../core/core.c -o test -lbdd -lgmp -I path_to_buddy/src -I../core/" 
