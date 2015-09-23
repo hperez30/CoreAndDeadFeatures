@@ -29,23 +29,10 @@ int main(int argc, char **argv)
     double secs;
     
 	bdd solutionSpace;
-	bdd aux, aux2;
-	  
-	double sat, sat2, sat3, sat4;
-	double *prob2, *prob3;
-	long double *prob, *prob_new;
-	double num_sol;
     
-    int core, dead;
-    FILE *f;
-    
-    int count;
-    int num_test;
-    
+    int core, dead, num_test;
     int *var_low, *var_high;
     int *marks, *res_node;
-    
-    int *res_node_low, *res_node_high;   
     
     if (argc != 3) 
     {
@@ -85,10 +72,8 @@ int main(int argc, char **argv)
 	    
 		for (int j=0; j<bdd_varnum(); ++j)
 		{
-			if ((solutionSpace&bdd_nithvar(j)) == bdd_false())
-				core++;
-			else if ((solutionSpace&bdd_ithvar(j)) == bdd_false())
-					dead++;
+			if ((solutionSpace&bdd_nithvar(j)) == bdd_false()) core++;
+			else if ((solutionSpace&bdd_ithvar(j)) == bdd_false()) dead++;
 		}
 
 		printf("core %d \n",core);
