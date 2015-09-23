@@ -36,13 +36,13 @@
 
 <p>
 In this repository we provide an efficient algorithm to identify core and dead features in Varibility Models. Our 
-algorithm is written in C and uses reduced ordered Binary Decision Diagrams (ROBDDs) to reason about 
+algorithm is written in C programming language and uses reduced ordered Binary Decision Diagrams (ROBDDs) to reason about 
 large variblity models. In particular our algorithm utilizes the <a href="http://buddy.sourceforge.net/manual/main.html"> 
 BuDDy BDD package</a> for handling BDDs.</p>
 
 <h3>
 <a id="instructions" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instructions</h3>
-<p>If not already installed buddy BDD package on your system, follow the instructions in this section to install it.</p>
+<p>follow the instructions in this section to install buddy BDD package, if not already installed.</p>
 <ol>
   <li> Download <a href="http://sourceforge.net/projects/buddy/">buddy-2.4.tar.gz</a> (766,5 kB).
   <li> Unzip "gunzip buddy-2.4.tar.gz".
@@ -82,7 +82,7 @@ package in buddy.ps.</p>
   <li> Open a terminal (Ctrl + Alt + T in ubuntu).
   <li> Unzip "gunzip hperez30-CoreAndDeadFeatures-51bbbae.tar.gz".
   <li> Go to "coreanddead/core_test/" directory.
-  <li> Type "g++ -O3 -std=c++0x test.c ../core/core.c -o test -lbdd -lgmp -I path_to_buddy/src -I../core/"
+  <li> Type "g++ -O3 test.c ../core/core.c -o test -lbdd -I path_to_buddy/src -I../core/"
 </ol> 
 
 <h3>
