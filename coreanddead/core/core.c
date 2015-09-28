@@ -28,10 +28,10 @@ void dead_features(int *var_high, int *var_low, int num_var)
 
 int get_dependencies_conflicts(const bdd r, int *vars_low, int *vars_high, int *marks,  int *res_node)
 {
-    int level, level_high, level_low;
-    int root;
+    	int level, level_high, level_low;
+    	int root;
     
-	root = r.id();
+     	root = r.id();
 	if (!marks[root])
 	{
 		marks[root] = !marks[root];
