@@ -5,24 +5,22 @@ void dead_features(int *var_high, int *var_low, int num_var)
 {
 	int num_dead, num_core;
 	
-	num_dead = 0;
-	num_core = 0;
+	num_dead = 0;num_core = 0;
 	
-	//fprintf(stdout, "Core features: \n");
 	for (int i=0; i<num_var; ++i)
 	{
 		if (var_high[i] != var_low[i])
-		if (var_high[i] && !var_low[i])
-		{
-			fprintf(stdout, "core %d \n", i);
-			num_core++;
-		} else {
-			if (!var_high[i] && var_low[i])
+			if (var_high[i] && !var_low[i])
 			{
-				fprintf(stdout, "dead %d \n", i);
-				num_dead++;
+				fprintf(stdout, "core %d \n", i);
+				num_core++;
+			} else {
+				if (!var_high[i] && var_low[i])
+				{
+					fprintf(stdout, "dead %d \n", i);
+					num_dead++;
+				}
 			}
-		}
 	}
 	
 	fprintf(stdout, "Number of core feaures: %d \nNumber of dead features: %d \n", num_core, num_dead);
