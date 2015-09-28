@@ -21,9 +21,7 @@ the instructions in this section to install BuDDy BDD package on your system.
 
 DOCUMENTATION
 
-The buddy-2.4/doc directory contains documentation for the BuDDy package in postscript(tm) 
-format. An introduction to binary decision diagrams is described in bddnotes.ps. In addition, 
-you can find a full description of the buddy package in buddy.ps.
+The buddy-2.4/doc directory contains documentation for the BuDDy package in postscript(tm) format. An introduction to binary decision diagrams is described in bddnotes.ps. In addition, you can find a full description of the buddy package in buddy.ps.
 
 TEST
 
