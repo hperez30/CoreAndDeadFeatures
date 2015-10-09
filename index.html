@@ -50,7 +50,7 @@ particular, the algorithm published in this site is specifically designed to det
 This repository provides an algorithm to identify core and dead features, which is written in the C++ programming language as an extension of the <a href="http://buddy.sourceforge.net/manual/main.html"> BuDDy BDD package</a>.</p>
 
 <h3>
-<a id="instructions" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instructions</h3>
+<a id="installBuddy" class="anchor" href="#installBuddy" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to Install BuDDy</h3>
 <p>Follow the instructions in this section to install the BuDDy BDD package on your system, if it is not already installed.</p>
 <ol>
   <li> Download <a href="http://sourceforge.net/projects/buddy/">buddy-2.4.tar.gz</a> (766,5 kB).
@@ -62,13 +62,13 @@ This repository provides an algorithm to identify core and dead features, which 
 </ol>  
 
 <h3>
-<a id="documentation" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documentation</h3>
-<p>The buddy-2.4/doc directory contains documentation for the BuDDy package in the postscript format. An introduction to binary decision diagrams 
+<a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>BuDDy Documentation</h3>
+<p>The buddy-2.4/doc directory contains documentation for the BuDDy package in postscript. An introduction to binary decision diagrams 
 is described in the bddnotes.ps file. In addition, you can find a full description of the buddy package in buddy.ps.</p>
 
 <h3>
-<a id="test" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test</h3>
-<p>Follow the instructions in this section to test our algorithm.</p>
+<a id="installAlgorithm" class="anchor" href="#installAlgorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to Install Our Algorithm</h3>
+<p>Follow the instructions in this section to install our algorithm implementation.</p>
 <ol>
   <li> Download the code <a href="https://github.com/hperez30/CoreAndDeadFeatures/tarball/master">hperez30-CoreAndDeadFeatures-51bbbae.tar</a> (2,1 kB).
   <li> Unzip "gunzip hperez30-CoreAndDeadFeatures-51bbbae.tar.gz".
@@ -77,8 +77,8 @@ is described in the bddnotes.ps file. In addition, you can find a full descripti
   <br>	  
   The following directories are created:
     <li>coreanddead/core/       ->     core and features algorithm implementation
-    <li>coreanddead/core_test/  ->     a simple test program
-    <li>coreanddead/bdds/       ->     some bdd samples 
+    <li>coreanddead/core_test/  ->     a simple test program (use this test as a template to build your programs)
+    <li>coreanddead/bdds/       ->     some examples of BDDs that can be loaded and processed with BuDDy and our algorithm
     <li>readme.txt
   </ul>
 </ol> 
@@ -89,17 +89,17 @@ is described in the bddnotes.ps file. In addition, you can find a full descripti
 </ol>
 
 <h3>
-<a id="compile" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compile</h3>
-<p>Follow the instructions in this section to compile the test program.</p>
+<a id="compile" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compiling the core_test template</h3>
+<p>Follow the instructions in this section to compile our test program.</p>
 <ol>
-  <li> Open a terminal (Ctrl + Alt + T in ubuntu).
+  <li> Open a terminal (Ctrl + Alt + T in Ubuntu).
   <li> Unzip "gunzip hperez30-CoreAndDeadFeatures-51bbbae.tar.gz".
   <li> Go to "coreanddead/core_test/" directory.
   <li> Type "g++ -O3 -std=c++0x test.c ../core/core.c -o test -lbdd -I path_to_buddy/src -I../core/"
 </ol> 
 
 <h3>
-<a id="execute" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Execute</h3>
+<a id="execute" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running the core_test template</h3>
 <p>Follow the instructions in this section to run the test program.</p>
 <ol>
   <li> Open a terminal (Ctrl + Alt + T in ubuntu).
@@ -108,11 +108,11 @@ is described in the bddnotes.ps file. In addition, you can find a full descripti
 </ol> 
 
 <h3>
-<a id="samples" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Samples</h3>
-<p>Table1 contains some sample files in BuDDy bdd format and their source format to test the algorithm.</p>
+<a id="benchmark" class="anchor" href="#benchmark" aria-hidden="true"><span class="octicon octicon-link"></span></a>Benchmark</h3>
+<p>To test the performance of our algorithm, use the following Benchmark, which includes variability models encoded as BuDDy BDDs, and the corresponding links to the repositories where the were originally published.</p>
  	
 <table id="attachments" class="sticky-enabled"><caption ALIGN=bottom>Table 1. Variability models</caption>
- <thead><tr><th>id.</th><th>BDD enconding</th><th>Source model</th><th>id.</th><th>BDD enconding</th><th>Source model</th> </tr></thead>
+ <thead><tr><th>id.</th><th>BDD Enconding</th><th>Link to the Original Model</th><th>id.</th><th>BDD enconding</th><th>Link to the Original Model</th> </tr></thead>
 <tbody>
  <tr class="odd"><td>m1</td><td><a href="https://github.com/hperez30/CoreAndDeadFeatures/blob/master/coreanddead/samples/billing/billing.bdd">Billing</a></td><td><a href="http://ec2-52-27-187-106.us-west-2.compute.amazonaws.com:8080/SPLOT/models/model_20110516_1331478109.xml">Billing</a></td><td>m11</td><td><a href="https://github.com/hperez30/CoreAndDeadFeatures/blob/master/coreanddead/samples/axTLS/axTLS.bdd">axTLS</a></td><td><a href="http://gsd.uwaterloo.ca/sites/default/files/models.zipbilling.cnf">axTLS</a></td> </tr>
  <tr class="odd"><td>m2</td><td><a href="https://github.com/hperez30/CoreAndDeadFeatures/blob/master/coreanddead/samples/cocheEcologico/cocheEcologico.bdd">Coche Ecologico</a></td><td><a href="http://ec2-52-27-187-106.us-west-2.compute.amazonaws.com:8080/SPLOT/models/model_20091205_755658379.xml">Coche Ecologico</a></td><td>m12</td><td><a href="https://github.com/hperez30/CoreAndDeadFeatures/blob/master/coreanddead/samples/fiasco/fiasco.bdd">fiasco</a></td><td><a href="http://gsd.uwaterloo.ca/sites/default/files/models.zipbilling.cnf">fiasco</a></td>  </tr>
@@ -127,6 +127,14 @@ is described in the bddnotes.ps file. In addition, you can find a full descripti
  
 </tbody>
 </table>
+
+<h3>
+<a id="credits" class="anchor" href="#credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits</h3>
+</h3>
+<p>This work has been developed by <a href="https://www.researchgate.net/profile/Hector_Perez-Morago">Hector Perez-Morago<\a>,  <a href="https://www.researchgate.net/profile/Ruben_Heradio">Ruben Heradio</a>,  <a href="https://www.researchgate.net/profile/David_Fernandez-Amoros">David Fernandez-Amoros</a>, <a href="https://es.linkedin.com/pub/roberto-be%C3%A1n-castell%C3%B3/3a/875/372">Roberto Bean</a>, and <a href="https://www.researchgate.net/profile/Carlos_Cerrada">Carlos Cerrada</a>
+</p>
+
+
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contact</h3>
 <p>If you need further information, do not hesitate to contact Hector Perez-Morago (hperez@issi.uned.es).</p>
