@@ -7,7 +7,7 @@ diagrams (BDDs), and it can be found on the server http://sourceforge.net/projec
 Our algorithm is written in C++ and it uses buddy for computing core and dead features
 form variability model.
 
-INSTALLATION
+INSTALLATI
 
 To use our algorithm you will need to install BuDDy BDD package in your system. Follow 
 the instructions in this section to install BuDDy BDD package on your system.
