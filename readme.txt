@@ -1,4 +1,4 @@
-This directory contains a set of files that allow you to get the core and features 
+This directory contains a set of files that allow you to get the core and dead features 
 of a variability model codified into a BDD using the BuDDy BDD package.
 
 The BuDDy package is a package for the manipulation of binary decision 
