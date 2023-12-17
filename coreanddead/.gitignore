@@ -1,5 +1,5 @@
-coreanddead/.vscode/
-coreanddead/bin/
-coreanddead/lib/
+coreanddead/.vscode
+coreanddead/bin
+coreanddead/lib
 coreanddead/core/debug.h
 compile.sh
