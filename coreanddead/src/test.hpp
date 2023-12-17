@@ -5,8 +5,8 @@
 
 #include "bdd.h"
 #include "kernel.h"
-#include "utils.h"
-#include <core.h>
+#include "utils.hpp"
+#include <core.hpp>
 
 const int INITBDDNODES       = 50000;
 const int INITBDDCACHE       = 10000000;

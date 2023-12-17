@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "utils.hpp"
 
 /* return "a - b" in seconds */
 double timeval_diff(struct timeval *a, struct timeval *b) {
