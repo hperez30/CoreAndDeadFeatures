@@ -27,14 +27,12 @@ TEST
 
 Follow the instructions in this section to test our algorithm.
 
- 1. Download the code hperez30-CoreAndDeadFeatures-51bbbae.tar (2,1 kB).
- 2. Unzip "gunzip hperez30-CoreAndDeadFeatures-51bbbae.tar.gz".
- 3. Untar "tar xvf hperez30-CoreAndDeadFeatures-51bbbae.tar".
+ 1. Download the code https://github.com/hperez30/CoreAndDeadFeatures/archive/refs/tags/2.0.0.zip.
+ 2. Unzip "gunzip CoreAndDeadFeatures-2.0.0.zip".
  
- The following directories are created:
-    coreanddead/core/            core and features algorithm implmentation
-    coreanddead/core_test/       a simple test program
-    coreanddead/bdds/            some bdd examples 
+ The following directories are created:    
+    coreanddead/src/                the files required by our algorithm and a simple test program called test.cpp
+    coreanddead/samples/            some bdd examples 
     readme.txt
  
  COMPILE 
@@ -42,17 +40,17 @@ Follow the instructions in this section to test our algorithm.
  Follow the instructions in this section to compile test program.
     
  1. Open a terminal (Ctrl + Alt + T in ubuntu).
- 2. Unzip "gunzip hperez30-CoreAndDeadFeatures-51bbbae.tar.gz".
- 3. Go to "coreanddead/core_test/" directory.
- 4. Type "g++ -O3 -std=c++0x test.c ../core/core.c -o test -lbdd -I path_to_buddy/src -I../core/" 
+ 2. Unzip "gunzip CoreAndDeadFeatures-2.0.0.zip".
+ 3. Go to "coreanddead/" directory. 
+ 4. Type "g++ -O3 -Wall -Wextra -std=c++0x ./src/test.cpp ./src/core.cpp ./src/utils.cpp -o ./bin/test -lbdd -I path_to_buddy/src -I . -I ./src/ -L ./lib/"
 
 EXECUTE
 
 Follow the instructions in this section to run the test program.
 
  1. Open a terminal (Ctrl + Alt + T in ubuntu).
- 2. Go to "coreanddead/core_test/" directory.
- 3. Type "./test path_to_bdd_sample_file option_method".
+ 2. Go to "coreanddead/" directory.
+ 3. Type "./bin/test path_to_bdd_sample_file option_method".
  
  CONTACT
 
