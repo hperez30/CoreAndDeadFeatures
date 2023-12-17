@@ -34,10 +34,13 @@ int main(int argc, char **argv)
 	
 	struct timeval t_ini, t_fin;
 	gettimeofday(&t_ini, NULL);
+	
+	int *num_dead_core;
 
 	switch (method) {
 		case 1: // brute force approach
-			int *num_dead_core = (int *)malloc(2*sizeof(int));
+		{
+			num_dead_core = (int *)malloc(2*sizeof(int));
 			for (int i=0; i < 2; ++i)
 				num_dead_core[i] = 0;
 
@@ -55,8 +58,11 @@ int main(int argc, char **argv)
 			
 			free(num_dead_core);
 			break;
+		}
+			
 
-		case 2: // our approach			
+		case 2: // our approach	
+		{
 			int *var_low = (int *)calloc(bdd_varnum(), sizeof(int));
 			int *var_high = (int *)calloc(bdd_varnum(), sizeof(int));
 
@@ -65,7 +71,7 @@ int main(int argc, char **argv)
 
 			get_dependencies_conflicts(solutionSpace, var_low, var_high, marks, res_node);
 
-			int *num_dead_core = (int *)malloc(2*sizeof(int));
+			num_dead_core = (int *)malloc(2*sizeof(int));
 			num_dead_core = dead_features(var_high, var_low, bdd_varnum());
 
 			show_results(num_dead_core[0], num_dead_core[1]);
@@ -78,6 +84,7 @@ int main(int argc, char **argv)
 			free(res_node);
 			free(num_dead_core);
 			break;
+		}					
 
 		default:
 			std::cout << "invalid option " << method << std::endl;

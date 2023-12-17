@@ -5,7 +5,7 @@
 
 #include "bdd.h"
 #include "kernel.h"
-#include "utils/utils.h"
+#include "utils.h"
 #include <core.h>
 
 const int INITBDDNODES       = 50000;
