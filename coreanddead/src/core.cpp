@@ -1,4 +1,4 @@
-#include <core.h>
+#include <core.hpp>
 
 int* dead_features(int *var_high, int *var_low, int num_var)
 {
