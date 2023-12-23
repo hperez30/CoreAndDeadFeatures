@@ -1,104 +1,186 @@
 #include "test.hpp"
 
+namespace fs = std::filesystem;
+
+std::vector<fs::path> get_dir_files(const fs::path& directorio);
+
 int main(int argc, char **argv)
 {	
 	int method;	
-
-	if (read_params(argc, argv, &method)){
-		return 1;
-	}
-
-	/* Initilize buddy */
-	bdd_init(INITBDDNODES, INITBDDCACHE);
-	bdd_setmaxincrease(INITBDDMAXINCREASE);
-
-#ifdef REORDER
-	/* compile with REORDER flag if you want to use automatic reordering techniques */
-	bdd_autoreorder(BDD_REORDER_SIFT);
-#endif
-
-	bdd solutionSpace;	
-	bdd_fnload((char *)argv[2], solutionSpace);
-	std::cerr << "Model " << argv[1] << " loaded" << std::endl;
-
-	bdd_varblockall();
-	bdd_reorder(BDD_REORDER_SIFT);
+	int in_file, out_file;
 	
-	struct timeval t_ini, t_fin;
-	gettimeofday(&t_ini, NULL);	
-	int *num_dead_core;
+	in_file = -1;
+	out_file = -1;
 
+	if (read_params(argc, argv, &method, &in_file, &out_file)){
+		return 1;
+	}			
+	
+	struct timeval t_ini, t_fin;	
+	
 	switch (method) {
 		case 1: // brute force approach
-		{
+		{			
+			/* Initilize buddy */
+			bdd_init(INITBDDNODES, INITBDDCACHE);
+			bdd_setmaxincrease(INITBDDMAXINCREASE);
+
+		#ifdef REORDER
+			/* compile with REORDER flag if you want to use automatic reordering techniques */
+			bdd_autoreorder(BDD_REORDER_SIFT);
+		#endif	
+			bdd solutionSpace;	
+			bdd_fnload((char *)argv[2], solutionSpace);
+			std::cerr << "Model " << argv[2] << " loaded" << std::endl;
+
+			bdd_varblockall();
+			bdd_reorder(BDD_REORDER_SIFT);
+
+			int *num_dead_core;
 			num_dead_core = (int *)malloc(2*sizeof(int));
+			
 			for (int i=0; i < 2; ++i)
 				num_dead_core[i] = 0;
 
+			gettimeofday(&t_ini, NULL);	
 			for (int j = 0; j < bdd_varnum(); ++j)
 			{
 				if ((solutionSpace & bdd_nithvar(j)) == bdd_false())
 					num_dead_core[1]++;
 				else if ((solutionSpace & bdd_ithvar(j)) == bdd_false())
 					num_dead_core[0]++;
-			}
-
-			show_results(num_dead_core[0], num_dead_core[1]);
+			}			
 			gettimeofday(&t_fin, NULL);
-			show_elapsed_time(&t_fin, &t_ini);
+			
+			if (out_file > 0){
+				show_results((char *)argv[2], method, num_dead_core, timeval_diff(&t_fin, &t_ini), out_file, argv);
+			} else{
+				show_results((char *)argv[2], method, num_dead_core, timeval_diff(&t_fin, &t_ini));		
+			}	
 			
 			free(num_dead_core);
+			bdd_done();
 			break;
 		}			
 
 		case 2: // our approach	
 		{
+			/* Initilize buddy */
+			bdd_init(INITBDDNODES, INITBDDCACHE);
+			bdd_setmaxincrease(INITBDDMAXINCREASE);
+
+		#ifdef REORDER
+			/* compile with REORDER flag if you want to use automatic reordering techniques */
+			bdd_autoreorder(BDD_REORDER_SIFT);
+		#endif	
+			bdd solutionSpace;	
+			bdd_fnload((char *)argv[2], solutionSpace);
+			std::cerr << "Model " << argv[2] << " loaded" << std::endl;
+
+			bdd_varblockall();
+			bdd_reorder(BDD_REORDER_SIFT);
+
+			int *num_dead_core;
 			int *var_low = (int *)calloc(bdd_varnum(), sizeof(int));
 			int *var_high = (int *)calloc(bdd_varnum(), sizeof(int));
 			int *marks = (int *)calloc(bddnodesize, sizeof(int));
 			int *res_node = (int *)calloc(bddnodesize, sizeof(int));
 
+			gettimeofday(&t_ini, NULL);	
 			get_dependencies_conflicts(solutionSpace, var_low, var_high, marks, res_node);
 
 			num_dead_core = (int *)malloc(2*sizeof(int));
 			num_dead_core = dead_features(var_high, var_low, bdd_varnum());
 
-			show_results(num_dead_core[0], num_dead_core[1]);
 			gettimeofday(&t_fin, NULL);
-			show_elapsed_time(&t_fin, &t_ini);
+			
+			if (out_file > 0){
+				show_results((char *)argv[2], method, num_dead_core, timeval_diff(&t_fin, &t_ini), out_file, argv);
+			} else{
+				show_results((char *)argv[2], method, num_dead_core, timeval_diff(&t_fin, &t_ini));		
+			}					
 
 			free(var_low);
 			free(var_high);
 			free(marks);
 			free(res_node);
 			free(num_dead_core);
+			bdd_done();
 			break;
-		}					
+		}
+
+		case 3:
+		{			
+			std::string directorio = "samples";   
+			auto archivos = get_dir_files(directorio);
+			
+			for (const auto& archivo : archivos) {
+				std::cerr << "Procesing file: " << archivo.string() << std::endl;
+				
+				bdd_init(INITBDDNODES, INITBDDCACHE);
+				bdd_setmaxincrease(INITBDDMAXINCREASE);
+				
+				bdd solutionSpace;	
+				bdd_fnload((char *)archivo.string().c_str(), solutionSpace);
+				std::cerr << "Model " << archivo.string() << " loaded" << std::endl;
+
+				bdd_varblockall();
+				bdd_reorder(BDD_REORDER_SIFT);
+
+				int *num_dead_core;
+				int *var_low = (int *)calloc(bdd_varnum(), sizeof(int));
+				int *var_high = (int *)calloc(bdd_varnum(), sizeof(int));
+				int *marks = (int *)calloc(bddnodesize, sizeof(int));
+				int *res_node = (int *)calloc(bddnodesize, sizeof(int));
+
+				gettimeofday(&t_ini, NULL);	
+				get_dependencies_conflicts(solutionSpace, var_low, var_high, marks, res_node);
+
+				num_dead_core = (int *)malloc(2*sizeof(int));
+				num_dead_core = dead_features(var_high, var_low, bdd_varnum());
+
+				gettimeofday(&t_fin, NULL);
+				if (out_file > 0){
+					show_results((char *)archivo.string().c_str(), method, num_dead_core, timeval_diff(&t_fin, &t_ini), out_file, argv);
+				} else{
+					show_results((char *)archivo.string().c_str(), method, num_dead_core, timeval_diff(&t_fin, &t_ini));		
+				}
+
+				free(var_low);
+				free(var_high);
+				free(marks);
+				free(res_node);
+				free(num_dead_core);
+				bdd_done();
+			}						
+			break;
+		}
 
 		default:
-			std::cout << "invalid " << method << " method " << std::endl;
-	} 
-	bdd_done();
+			std::cerr << "Invalid " << method << " method " << std::endl;
+	} 	
 
 } // end main
 
-void show_results(int num_dead, int num_core) {
-	std::cout << "core: " << num_core << std::endl;
-	std::cout << "dead: " << num_dead << std::endl;
-}
+int read_params(int argc, char **argv, int *method, int *in_file, int *out_file) {
+	int option, i;
+	std::string filePath, outfile;
 
-int read_params(int argc, char **argv, int *method) {
-	int option;
-	std::string filePath;
-
-	while ((option = getopt(argc, argv, "f:m:")) != -1) {
+	i = 0;
+	while ((option = getopt(argc, argv, "f:m:o:")) != -1) {
+		i++;
         switch (option) {
-            case 'f':
-				filePath = optarg;												               
+            case 'f':				
+				*in_file = ++i;					
+				filePath = optarg;											               
                 break;
-			case 'm':
-				std::cerr << optarg << std::endl;
+			case 'm':				
                 *method = atoi(optarg);
+				++i;				
+                break;
+			case 'o':
+				*out_file = ++i;		
+				outfile = optarg;											               												               
                 break;
             case '?':
                 if (optopt == 'f') {
@@ -115,14 +197,57 @@ int read_params(int argc, char **argv, int *method) {
             default:
                 std::cerr << "Usage: " << argv[0] << " -f <path_to_bdd_file>" << std::endl;
                 return 1;
-        }
+        }				
     }
 
-	std::ifstream mybdd(filePath);
-	if (!mybdd.is_open()) {
-		std::cerr << "The model could not be opened: " << filePath << std::endl;
-		return 1;
+	if (*in_file > 0){
+		std::ifstream mybdd(filePath);
+		if (!mybdd.is_open()) {
+			std::cerr << "The model could not be opened: " << filePath << std::endl;
+			return 1;
+		}
+	}
+	
+	if (*out_file > 0){
+		std::ifstream outstream(outfile);
+		if (!outstream.is_open()) {
+			std::cerr << "The output file could not be opened: " << outfile << std::endl;
+			return 1;
+		}
 	}
 
 	return 0;
+}
+
+std::vector<fs::path> get_dir_files(const fs::path& directorio) {
+    std::vector<fs::path> archivos;
+
+    try {        
+        for (const auto& entry : fs::directory_iterator(directorio)) {
+            if (fs::is_regular_file(entry)) {                
+                archivos.push_back(entry.path());				
+            } else if (fs::is_directory(entry)) {                
+                auto archivosSubdirectorio = get_dir_files(entry.path());                
+                archivos.insert(archivos.end(), archivosSubdirectorio.begin(), archivosSubdirectorio.end());
+            }
+        }
+    } catch (const fs::filesystem_error& ex) {
+        std::cerr << "Error, the directory could not be read: " << ex.what() << std::endl;
+    }
+
+    return archivos;
+}
+
+void show_results(const char *model, int method, int *num_dead_core, double timediff) {
+	std::cout << "model, method, core, dead, time(secs)" << std::endl;
+	std::cout << model << ", "<< method << ", " << num_dead_core[1] << ", " << num_dead_core[0] << ", " << timediff << std::endl;
+}
+
+void show_results(const char *model, int method, int *num_dead_core, double timediff, int out_file, char **argv) {	
+	auto original_stdout = std::cout.rdbuf();	
+	const char* filename = (char *)argv[out_file];
+	std::ofstream file(filename, std::ios_base::app);
+	std::cout.rdbuf(file.rdbuf());					
+	std::cout << model << ", "<< method << ", " << num_dead_core[1] << ", " << num_dead_core[0] << ", " << timediff << std::endl;
+	std::cout.rdbuf(original_stdout);
 }
