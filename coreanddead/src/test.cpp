@@ -20,8 +20,7 @@ int main(int argc, char **argv)
 	
 	switch (method) {
 		case 1: // brute force approach
-		{			
-			/* Initilize buddy */
+		{						
 			bdd_init(INITBDDNODES, INITBDDCACHE);
 			bdd_setmaxincrease(INITBDDMAXINCREASE);
 
@@ -53,7 +52,7 @@ int main(int argc, char **argv)
 			gettimeofday(&t_fin, NULL);
 			
 			if (out_file > 0){
-				show_results((char *)argv[2], method, num_dead_core, timeval_diff(&t_fin, &t_ini), out_file, argv);
+				show_results((char *)argv[2], method, num_dead_core, timeval_diff(&t_fin, &t_ini), (char *)argv[out_file]);
 			} else{
 				show_results((char *)argv[2], method, num_dead_core, timeval_diff(&t_fin, &t_ini));		
 			}	
@@ -65,7 +64,6 @@ int main(int argc, char **argv)
 
 		case 2: // our approach	
 		{
-			/* Initilize buddy */
 			bdd_init(INITBDDNODES, INITBDDCACHE);
 			bdd_setmaxincrease(INITBDDMAXINCREASE);
 
@@ -95,7 +93,7 @@ int main(int argc, char **argv)
 			gettimeofday(&t_fin, NULL);
 			
 			if (out_file > 0){
-				show_results((char *)argv[2], method, num_dead_core, timeval_diff(&t_fin, &t_ini), out_file, argv);
+				show_results((char *)argv[2], method, num_dead_core, timeval_diff(&t_fin, &t_ini), (char *)argv[out_file]);
 			} else{
 				show_results((char *)argv[2], method, num_dead_core, timeval_diff(&t_fin, &t_ini));		
 			}					
@@ -141,7 +139,7 @@ int main(int argc, char **argv)
 
 				gettimeofday(&t_fin, NULL);
 				if (out_file > 0){
-					show_results((char *)archivo.string().c_str(), method, num_dead_core, timeval_diff(&t_fin, &t_ini), out_file, argv);
+					show_results((char *)archivo.string().c_str(), method, num_dead_core, timeval_diff(&t_fin, &t_ini), (char *)argv[out_file]);
 				} else{
 					show_results((char *)archivo.string().c_str(), method, num_dead_core, timeval_diff(&t_fin, &t_ini));		
 				}
@@ -243,10 +241,9 @@ void show_results(const char *model, int method, int *num_dead_core, double time
 	std::cout << model << ", "<< method << ", " << num_dead_core[1] << ", " << num_dead_core[0] << ", " << timediff << std::endl;
 }
 
-void show_results(const char *model, int method, int *num_dead_core, double timediff, int out_file, char **argv) {	
-	auto original_stdout = std::cout.rdbuf();	
-	const char* filename = (char *)argv[out_file];
-	std::ofstream file(filename, std::ios_base::app);
+void show_results(const char *model, int method, int *num_dead_core, double timediff, const char *outputfile) {	
+	auto original_stdout = std::cout.rdbuf();		
+	std::ofstream file(outputfile, std::ios_base::app);
 	std::cout.rdbuf(file.rdbuf());					
 	std::cout << model << ", "<< method << ", " << num_dead_core[1] << ", " << num_dead_core[0] << ", " << timediff << std::endl;
 	std::cout.rdbuf(original_stdout);
