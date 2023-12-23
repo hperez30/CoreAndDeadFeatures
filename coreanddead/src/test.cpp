@@ -52,9 +52,9 @@ int main(int argc, char **argv)
 			gettimeofday(&t_fin, NULL);
 			
 			if (out_file > 0){
-				show_results((char *)argv[2], method, num_dead_core, timeval_diff(&t_fin, &t_ini), (char *)argv[out_file]);
+				show_results((char *)argv[2], bdd_varnum(), method, num_dead_core, timeval_diff(&t_fin, &t_ini), (char *)argv[out_file]);
 			} else{
-				show_results((char *)argv[2], method, num_dead_core, timeval_diff(&t_fin, &t_ini));		
+				show_results((char *)argv[2], bdd_varnum(), method, num_dead_core, timeval_diff(&t_fin, &t_ini));		
 			}	
 			
 			free(num_dead_core);
@@ -77,13 +77,16 @@ int main(int argc, char **argv)
 
 			bdd_varblockall();
 			bdd_reorder(BDD_REORDER_SIFT);
+			
+			std::unordered_map<uint32_t, bool> marks;
+			marks.rehash(bdd_nodecount(solutionSpace));
+			std::unordered_map<uint32_t, uint32_t> res_node;
+			res_node.rehash(bdd_nodecount(solutionSpace));
 
 			int *num_dead_core;
 			int *var_low = (int *)calloc(bdd_varnum(), sizeof(int));
 			int *var_high = (int *)calloc(bdd_varnum(), sizeof(int));
-			int *marks = (int *)calloc(bdd_nodecount(solutionSpace), sizeof(int));
-			int *res_node = (int *)calloc(bdd_nodecount(solutionSpace), sizeof(int));
-
+						
 			gettimeofday(&t_ini, NULL);	
 			get_dependencies_conflicts(solutionSpace, var_low, var_high, marks, res_node);
 
@@ -93,15 +96,13 @@ int main(int argc, char **argv)
 			gettimeofday(&t_fin, NULL);
 			
 			if (out_file > 0){
-				show_results((char *)argv[2], method, num_dead_core, timeval_diff(&t_fin, &t_ini), (char *)argv[out_file]);
+				show_results((char *)argv[2], bdd_varnum(), method, num_dead_core, timeval_diff(&t_fin, &t_ini), (char *)argv[out_file]);
 			} else{
-				show_results((char *)argv[2], method, num_dead_core, timeval_diff(&t_fin, &t_ini));		
+				show_results((char *)argv[2], bdd_varnum(), method, num_dead_core, timeval_diff(&t_fin, &t_ini));		
 			}					
 
 			free(var_low);
-			free(var_high);
-			free(marks);
-			free(res_node);
+			free(var_high);						
 			free(num_dead_core);
 			bdd_done();
 			break;
@@ -127,9 +128,11 @@ int main(int argc, char **argv)
 
 				int *num_dead_core;
 				int *var_low = (int *)calloc(bdd_varnum(), sizeof(int));
-				int *var_high = (int *)calloc(bdd_varnum(), sizeof(int));
-				int *marks = (int *)calloc(bdd_nodecount(solutionSpace), sizeof(int));
-				int *res_node = (int *)calloc(bdd_nodecount(solutionSpace), sizeof(int));
+				int *var_high = (int *)calloc(bdd_varnum(), sizeof(int));				
+				std::unordered_map<uint32_t, bool> marks;
+				marks.rehash(bdd_nodecount(solutionSpace));				
+				std::unordered_map<uint32_t, uint32_t> res_node;
+				res_node.rehash(bdd_nodecount(solutionSpace));
 
 				gettimeofday(&t_ini, NULL);	
 				get_dependencies_conflicts(solutionSpace, var_low, var_high, marks, res_node);
@@ -139,15 +142,13 @@ int main(int argc, char **argv)
 
 				gettimeofday(&t_fin, NULL);
 				if (out_file > 0){
-					show_results((char *)archivo.string().c_str(), method, num_dead_core, timeval_diff(&t_fin, &t_ini), (char *)argv[out_file]);
+					show_results((char *)archivo.string().c_str(), bdd_varnum(), method, num_dead_core, timeval_diff(&t_fin, &t_ini), (char *)argv[out_file]);
 				} else{
-					show_results((char *)archivo.string().c_str(), method, num_dead_core, timeval_diff(&t_fin, &t_ini));		
+					show_results((char *)archivo.string().c_str(), bdd_varnum(), method, num_dead_core, timeval_diff(&t_fin, &t_ini));		
 				}
 
 				free(var_low);
-				free(var_high);
-				free(marks);
-				free(res_node);
+				free(var_high);							
 				free(num_dead_core);
 				bdd_done();
 			}						
@@ -236,15 +237,15 @@ std::vector<fs::path> get_dir_files(const fs::path& directorio) {
     return archivos;
 }
 
-void show_results(const char *model, int method, int *num_dead_core, double timediff) {
-	std::cout << "model, method, core, dead, time(secs)" << std::endl;
-	std::cout << model << ", "<< method << ", " << num_dead_core[1] << ", " << num_dead_core[0] << ", " << timediff << std::endl;
+void show_results(const char *model, int num_vars, int method, int *num_dead_core, double timediff) {
+	std::cout << "model, num vars, method, core, dead, time(secs)" << std::endl;
+	std::cout << model << ", "<< num_vars << ", " << method << ", " << num_dead_core[1] << ", " << num_dead_core[0] << ", " << timediff << std::endl;
 }
 
-void show_results(const char *model, int method, int *num_dead_core, double timediff, const char *outputfile) {	
+void show_results(const char *model, int num_vars, int method, int *num_dead_core, double timediff, const char *outputfile) {	
 	auto original_stdout = std::cout.rdbuf();		
 	std::ofstream file(outputfile, std::ios_base::app);
 	std::cout.rdbuf(file.rdbuf());					
-	std::cout << model << ", "<< method << ", " << num_dead_core[1] << ", " << num_dead_core[0] << ", " << timediff << std::endl;
+	std::cout << model << ", " << num_vars << ", " << method << ", " << num_dead_core[1] << ", " << num_dead_core[0] << ", " << timediff << std::endl;
 	std::cout.rdbuf(original_stdout);
 }
