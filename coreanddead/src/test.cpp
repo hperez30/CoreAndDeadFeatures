@@ -83,8 +83,8 @@ int main(int argc, char **argv)
 			int *num_dead_core;
 			int *var_low = (int *)calloc(bdd_varnum(), sizeof(int));
 			int *var_high = (int *)calloc(bdd_varnum(), sizeof(int));
-			int *marks = (int *)calloc(bddnodesize, sizeof(int));
-			int *res_node = (int *)calloc(bddnodesize, sizeof(int));
+			int *marks = (int *)calloc(bdd_nodecount(solutionSpace), sizeof(int));
+			int *res_node = (int *)calloc(bdd_nodecount(solutionSpace), sizeof(int));
 
 			gettimeofday(&t_ini, NULL);	
 			get_dependencies_conflicts(solutionSpace, var_low, var_high, marks, res_node);
@@ -130,8 +130,8 @@ int main(int argc, char **argv)
 				int *num_dead_core;
 				int *var_low = (int *)calloc(bdd_varnum(), sizeof(int));
 				int *var_high = (int *)calloc(bdd_varnum(), sizeof(int));
-				int *marks = (int *)calloc(bddnodesize, sizeof(int));
-				int *res_node = (int *)calloc(bddnodesize, sizeof(int));
+				int *marks = (int *)calloc(bdd_nodecount(solutionSpace), sizeof(int));
+				int *res_node = (int *)calloc(bdd_nodecount(solutionSpace), sizeof(int));
 
 				gettimeofday(&t_ini, NULL);	
 				get_dependencies_conflicts(solutionSpace, var_low, var_high, marks, res_node);
