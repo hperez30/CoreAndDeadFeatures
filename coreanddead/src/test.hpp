@@ -7,7 +7,6 @@
 #include <vector>
 
 #include "bdd.h"
-#include "kernel.h"
 #include <utils.hpp>
 #include <core.hpp>
 
